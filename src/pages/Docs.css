@@ -1,0 +1,16 @@
+.docs-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.docs-container input[type="file"] {
+  margin-bottom: 20px;
+}
+
+.pdf-doc {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+}
