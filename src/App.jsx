@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
+import Navigation from './components/Navigation';
+import TimerControls from './components/TimerControls';
+import TaskList from './components/TaskList';
+import Docs from './pages/Docs';
+import ChatBot from './components/ChatBot';
+import useStore from './store/useStore';
+import './App.css';
+import './styles/Navigation.css';
+import './styles/TimerControls.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentView, setCurrentView] = useState('timer');
+  const [documents] = useState([]);
+  const { settings } = useStore();
+
+  useEffect(() => {
+    // Apply theme based on settings
+    document.documentElement.setAttribute(
+      'data-theme',
+      settings.darkMode ? 'dark' : 'light'
+    );
+  }, [settings.darkMode]);
+
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'timer':
+        return (
+          <div className="timer-layout">
+            <TimerControls />
+            <TaskList />
+          </div>
+        );
+      case 'docs':
+        return <Docs />;
+      case 'chat':
+        return <ChatBot documents={documents} />;
+      default:
+        return <TimerControls />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <Navigation currentView={currentView} setCurrentView={setCurrentView} />
+      
+      <main className="main-content">
+        {renderCurrentView()}
+      </main>
+
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: settings.darkMode ? '#2D2D2D' : '#FFFFFF',
+            color: settings.darkMode ? '#F7F7F7' : '#2D3436',
+          },
+        }}
+      />
+    </div>
+  );
 }
 
 export default App
