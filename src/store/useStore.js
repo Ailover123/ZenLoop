@@ -6,6 +6,8 @@ const useStore = create(
     (set) => ({
       tasks: [],
       completedTasks: [],
+      zenCodeTasks: [],
+      zenCodeDocuments: [],
       stats: {
         totalFocusTime: 0,
         totalSessions: 0,
@@ -51,6 +53,33 @@ const useStore = create(
       updateSettings: (newSettings) =>
         set((state) => ({
           settings: { ...state.settings, ...newSettings },
+        })),
+      // ZenCode Room functions
+      getTasksForRoom: (roomId) =>
+        set((state) => {
+          return state.zenCodeTasks.filter(task => task.roomId === roomId);
+        }),
+      getDocumentsForRoom: (roomId) =>
+        set((state) => {
+          return state.zenCodeDocuments.filter(doc => doc.roomId === roomId);
+        }),
+      saveZenCodeDocument: (document, roomId) =>
+        set((state) => ({
+          zenCodeDocuments: [...state.zenCodeDocuments, { ...document, roomId, id: Date.now() }]
+        })),
+      deleteZenCodeDocument: (docId) =>
+        set((state) => ({
+          zenCodeDocuments: state.zenCodeDocuments.filter(doc => doc.id !== docId)
+        })),
+      addZenCodeTask: (task, roomId) =>
+        set((state) => ({
+          zenCodeTasks: [...state.zenCodeTasks, { ...task, roomId, id: Date.now() }]
+        })),
+      completeZenCodeTask: (taskId) =>
+        set((state) => ({
+          zenCodeTasks: state.zenCodeTasks.map(task =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+          )
         })),
     }),
     {

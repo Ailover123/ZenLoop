@@ -1,26 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-
-// Theme context for global state management
-const ThemeContext = createContext();
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within AppProviders');
-  }
-  return context;
-};
-
-// Notification context for toast messages
-const NotificationContext = createContext();
-
-export const useNotification = () => {
-  const context = useContext(NotificationContext);
-  if (!context) {
-    throw new Error('useNotification must be used within AppProviders');
-  }
-  return context;
-};
+import React, { useState } from 'react';
+import { ThemeContext, NotificationContext } from './AppContexts';
 
 export function AppProviders({ children }) {
   const [notifications, setNotifications] = useState([]);
