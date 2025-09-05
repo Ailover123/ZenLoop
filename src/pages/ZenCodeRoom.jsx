@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Save, FileDown, GitBranch, Copy, Share2, Settings } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Save, FileDown, GitBranch, Copy, Share2, Settings, ArrowLeft } from 'lucide-react';
 import { SchedulePlanner } from '../components/SchedulePlanner';
 import { exportToPDF } from '../utils/pdfExporter';
 
 export function ZenCodeRoom() {
   const { zenCode } = useParams();
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const [docs, setDocs] = useState('');
@@ -60,6 +61,10 @@ export function ZenCodeRoom() {
     alert('ZenCode copied to clipboard!');
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
@@ -78,6 +83,17 @@ export function ZenCodeRoom() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]"></div>
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
+
+      {/* Back Button */}
+      <div className="absolute top-8 left-8 z-20">
+        <button
+          onClick={handleBack}
+          className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg backdrop-blur-xl"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back</span>
+        </button>
+      </div>
 
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">

@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import MainLayout from "../components/MainLayout";
 
 function Focus() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 relative overflow-hidden">
       {/* Enhanced animated background elements */}
@@ -21,6 +29,17 @@ function Focus() {
         <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-purple-400 rounded-full opacity-50 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3.5s' }}></div>
         <div className="absolute top-10 left-10 w-2 h-2 bg-fuchsia-300 rounded-full opacity-40 animate-bounce" style={{ animationDelay: '0.8s', animationDuration: '4.2s' }}></div>
         <div className="absolute bottom-20 right-10 w-1.5 h-1.5 bg-cyan-300 rounded-full opacity-35 animate-bounce" style={{ animationDelay: '2.3s', animationDuration: '3.8s' }}></div>
+      </div>
+
+      {/* Back Button */}
+      <div className="absolute top-8 left-8 z-20">
+        <button
+          onClick={handleBack}
+          className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg backdrop-blur-xl"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back</span>
+        </button>
       </div>
 
       {/* Main glass container */}

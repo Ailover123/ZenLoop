@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 function ZenCodeEntry() {
   const [zenCode, setZenCode] = useState("");
@@ -18,8 +19,23 @@ function ZenCodeEntry() {
     navigate("/zen-code/" + newCode);
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 relative overflow-hidden">
+      {/* Back Button */}
+      <div className="absolute top-8 left-8 z-20">
+        <button
+          onClick={handleBack}
+          className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg backdrop-blur-xl"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back</span>
+        </button>
+      </div>
+
       <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
         <div
           className="w-full max-w-lg rounded-3xl p-10 text-center shadow-2xl"
