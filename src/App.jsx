@@ -11,7 +11,7 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/focus" element={<Focus />} />
       <Route path="/zen-code" element={<ZenCodeEntry />} />
-      <Route path="/zen-room" element={<ZenCodeRoom />} />
+      <Route path="/zen-code/:zenCode" element={<ZenCodeRoom />} />
       <Route path="/docs" element={<Docs />} />
     </Routes>
   );

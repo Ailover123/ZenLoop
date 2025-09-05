@@ -29,7 +29,7 @@ const TaskList = () => {
       transition={{ duration: 0.3 }}
     >
       <h2 className="task-list-title">📝 Tasks</h2>
-      
+
       <form onSubmit={handleSubmit} className="task-form">
         <input
           type="text"

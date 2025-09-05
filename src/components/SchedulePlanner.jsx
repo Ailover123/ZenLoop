@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Clock, Calendar, Edit2, Trash2 } from 'lucide-react';
 
-export function SchedulePlanner({ schedule = [], mode = 'default' }) {
+export function SchedulePlanner({ schedule = [] }) {
   const [events, setEvents] = useState(schedule);
   const [newEvent, setNewEvent] = useState('');
   const [start, setStart] = useState('');
